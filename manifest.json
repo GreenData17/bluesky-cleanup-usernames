@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Bluesky - Cleanup Username",
+    "description": "cleans all usernames of their extention on Bluesky",
+    "version": "1.0",
+    "permissions": [
+      "storage"
+    ],
+    "action": {
+      "default_popup": "popup/popup.html",
+      "default_icon":  "icons/icon-light.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://bsky.app/*"],
+            "js": ["lib/browser-polyfill.js", "content-script.js"]
+        }
+    ],
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "cleanup-usernames@greendata.dev",
+        "strict_min_version": "111.0"
+      },
+      "chrome": {
+        "id": "cleanup-usernames@greendata.dev"
+      }
+    }
+  }
+  
