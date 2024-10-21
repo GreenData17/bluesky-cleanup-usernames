@@ -4,16 +4,23 @@ if(navigator.userAgent.toLowerCase().includes("mobile")) {
 
 // onLoadCompleted
 document.addEventListener('DOMContentLoaded', function() {
-    browser.storage.sync.get(['removeTLDs']).then(({ removeTLDs }) => {
+    browser.storage.sync.get(['removeTLDs', 'showBadge']).then(({ removeTLDs, showBadge }) => {
         document.getElementById('remove-TLD-toggle').classList.add(removeTLDs ? "active" : "false");
+        document.getElementById('show-badge').classList.add(showBadge || showBadge == null ? "active" : "false");
     });
+});
+
+// on github button clicked
+document.getElementById('github').addEventListener('click', () => {
+    window.open('https://github.com/GreenData17/bluesky-cleanup-usernames', '_blank');
 });
 
 // on save button clicked
 document.getElementById('save').addEventListener('click', () => {
     const removeTLDs = document.getElementById('remove-TLD-toggle').classList.contains("active")
+    const showBadge = document.getElementById('show-badge').classList.contains("active")
     
-    browser.storage.sync.set({ removeTLDs }).then(() => {
+    browser.storage.sync.set({ removeTLDs, showBadge }).then(() => {
         window.close();
     });
 });

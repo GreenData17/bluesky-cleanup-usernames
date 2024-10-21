@@ -67,11 +67,20 @@ button {
         border: none;
     }
 
+    div {
+        display: flex;
+        gap: 8px;
+    }
+
     img {
         width: 24px;
         height: 24px;
 
         user-select: none;
+    }
+
+    #github {
+        cursor: pointer;
     }
 }
 
