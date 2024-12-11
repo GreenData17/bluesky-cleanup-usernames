@@ -4,7 +4,8 @@ if(navigator.userAgent.toLowerCase().includes("mobile")) {
 
 // onLoadCompleted
 document.addEventListener('DOMContentLoaded', function() {
-    browser.storage.sync.get(['removeTLDs', 'showBadge']).then(({ removeTLDs, showBadge }) => {
+    browser.storage.sync.get(['removeTLDs', 'showBadge', 'colorMode']).then(({ removeTLDs, showBadge, colorMode }) => {
+        document.body.classList.add(colorMode == "light" ? "light" : (colorMode == "system" && window.matchMedia('(prefers-color-scheme: light)').matches ? "light" : "dark"))
         document.getElementById('remove-TLD-toggle').classList.add(removeTLDs ? "active" : "false");
         document.getElementById('show-badge').classList.add(showBadge || showBadge == null ? "active" : "false");
     });
