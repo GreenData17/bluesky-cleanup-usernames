@@ -5,6 +5,22 @@ function replaceTextOnPage() {
 
         while (node = walker.nextNode()) {
             const parent = node.parentNode;
+
+            // Skip if the text node is inside an element with role="dialog" or its descendants
+            let ancestor = parent;
+            let insideDialog = false;
+            while (ancestor) {
+                if (ancestor.getAttribute && ancestor.getAttribute('role') === 'dialog') {
+                    insideDialog = true;
+                    break;
+                }
+                ancestor = ancestor.parentNode;
+            }
+
+            if (insideDialog) {
+                continue;
+            }
+
             let newValue = "";
             let wskyDomainRemoved = false;
             let customDomainRemoved = false;
@@ -41,6 +57,9 @@ function replaceTextOnPage() {
         }
     });
 }
+
+const colorMode = JSON.parse(localStorage.getItem('BSKY_STORAGE'))["colorMode"]
+browser.storage.sync.set({ colorMode })
 
 replaceTextOnPage();
 
